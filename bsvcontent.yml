@@ -1,0 +1,186 @@
+openapi: 3.0.1
+info:
+  description: This is `bsvcontentserver`.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  title: OpenAPI BsvContent
+  version: 1.0.0
+servers:
+- url: https://bsvcontent.herokuapp.com/v1
+tags:
+- description: use api in bsvcontent
+  name: api
+paths:
+  /api/upload_text:
+    post:
+      operationId: api_upload_text
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestUploadTextModel'
+        description: upload text data on Bitcoin SV.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ResponseUploadTextModel'
+                type: object
+          description: successful operation
+        "400":
+          content: {}
+          description: Invalid status value
+      security:
+      - api_key: []
+      summary: upload text data on Bitcoin SV.
+      tags:
+      - api
+      x-codegen-request-body-name: body
+      x-openapi-router-controller: openapi_server.controllers.api_uploadtext_controller
+  /api/tx:
+    get:
+      description: get transaction from mongodb.
+      operationId: api_tx
+      parameters:
+      - description: bitcoin sv address
+        explode: true
+        in: path
+        name: addr
+        required: true
+        schema:
+          type: string
+      - description: start index ( default is 0 )
+        explode: true
+        in: query
+        name: start_index
+        required: false
+        schema:
+          type: integer
+      - description: get transaction count ( default is 5 )
+        explode: true
+        in: query
+        name: count
+        required: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ResponseTxModel'
+                type: object
+          description: successful operation
+        "400":
+          content: {}
+          description: Invalid status value
+      security:
+        - api_key: []
+      summary: get transactions.
+      tags:
+      - api
+      x-codegen-request-body-name: body
+      x-openapi-router-controller: openapi_server.controllers.api_tx_controller
+  /api/add_address:
+    post:
+      operationId: api_add_address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestAddAddressModel'
+        description: request /api/add_address
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAddAddressModel'
+          description: successful operation
+        "400":
+          content: {}
+          description: Invalid Order
+      security:
+        - api_key: []
+      summary: /api/address
+      tags:
+      - api
+      x-codegen-request-body-name: body
+      x-openapi-router-controller: openapi_server.controllers.api_addaddress_controller
+
+components:
+  schemas:
+    RequestUploadTextModel:
+      description: request /api/upload_text
+      example:
+        mnemonic_words: ""
+        message: "upload text"
+      properties:
+        mnemonic_words:
+          type: string
+        message:
+          type: string
+      title: request /api/upload_text
+      type: object
+    RequestAddAddressModel:
+      description: request /api/add_address
+      example:
+        address: "bitcoin sv address"
+      properties:
+        address:
+          type: string
+      title: request /api/add_address
+      type: object
+    ResponseAddAddressModel:
+      description: response /api/add_address
+      example:
+        code: 0
+        message: message
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+      title: response /api/add_address
+      type: object
+    ResponseUploadTextModel:
+      description: response /api/add_address
+      example:
+        code: 0
+        message: message
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+      title: response /api/add_address
+      type: object
+    ResponseTxModel:
+      description: response /api/tx
+      example:
+        code: 0
+        textdata_list: ["text00", "text01"]
+      properties:
+        code:
+          format: int32
+          type: integer
+        textdata_list:
+          type: array
+          items:
+            type: string
+      title: response /api/tx
+      type: object
+  securitySchemes:
+    api_key:
+      in: header
+      name: x-api-key
+      type: apiKey
+      x-apikeyInfoFunc: openapi_server.controllers.security_controller_.info_from_api_key
