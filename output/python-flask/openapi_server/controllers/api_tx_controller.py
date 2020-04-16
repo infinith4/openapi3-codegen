@@ -9,6 +9,7 @@ from pymongo import DESCENDING, ASCENDING
 import connexion
 import six
 import multiprocessing
+from openapi_server import app, mongo, bootstrap
 
 def api_tx(addr, start_index=None, count=None):  # noqa: E501
     # """get transactions.
@@ -27,13 +28,14 @@ def api_tx(addr, start_index=None, count=None):  # noqa: E501
     # return 'do some magic!'
 
     try:
-        app.logger.info("start /api/tx")
-        start_index_str = request.args.get('start_index')
+        addr = "aaaaaaa"
+        app.app.logger.info("start /api/tx")
+        start_index_str = app.app.request.args.get('start_index')
         if start_index_str == "":
             start_index = 0
         else: 
             start_index = int(start_index_str)
-        cnt_str = request.args.get('cnt')
+        cnt_str = app.app.request.args.get('cnt')
         if cnt_str == "":
             cnt = 5
         else:
