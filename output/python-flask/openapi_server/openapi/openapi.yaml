@@ -38,7 +38,7 @@ paths:
       tags:
       - api
       x-codegen-request-body-name: body
-      x-openapi-router-controller: openapi_server.controllers.api_controller
+      x-openapi-router-controller: openapi_server.controllers.api_addaddress_controller
   /api/tx:
     get:
       description: get transaction from mongodb.
@@ -86,7 +86,7 @@ paths:
       tags:
       - api
       x-codegen-request-body-name: body
-      x-openapi-router-controller: openapi_server.controllers.api_controller
+      x-openapi-router-controller: openapi_server.controllers.api_tx_controller
   /api/upload_text:
     post:
       operationId: api_upload_text
@@ -115,7 +115,7 @@ paths:
       tags:
       - api
       x-codegen-request-body-name: body
-      x-openapi-router-controller: openapi_server.controllers.api_controller
+      x-openapi-router-controller: openapi_server.controllers.api_uploadtext_controller
 components:
   schemas:
     RequestUploadTextModel:
