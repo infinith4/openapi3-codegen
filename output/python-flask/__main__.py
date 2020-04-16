@@ -35,8 +35,8 @@ def main():
     app.app.config.from_object('openapi_server.config.DevelopmentConfig')
     app.app.config["MONGO_URI"] = "mongodb+srv://" + app.app.config['BSVCONTENTSERVER_MONGODB_USER'] + ":" + app.app.config['BSVCONTENTSERVER_MONGODB_PASS'] + "@cluster0-xhjo9.mongodb.net/test?retryWrites=true&w=majority"
 
-    # bootstrap = Bootstrap(app)
-    # mongo = PyMongo(app)
+    bootstrap = Bootstrap(app.app)
+    mongo = PyMongo(app.app)
 
     app.run(port=8080)
 
