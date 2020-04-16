@@ -14,8 +14,15 @@ Python 3.5.2+
 To run the server, please execute the following from the root directory:
 
 ```
+cd output/python-flask
+deactivate
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install wheel
 pip3 install -r requirements.txt
 python3 -m openapi_server
+
+pip3 freeze | grep -v "pkg-resources" > requirements.txt
 ```
 
 and open your browser to here:
