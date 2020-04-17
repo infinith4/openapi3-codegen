@@ -9,7 +9,7 @@ python:
   - "3.7"
   - "3.8"
 # command to install dependencies
-install: "pip install -r requirements.txt"
+install: "pip3 install -r requirements.txt"
 before_script:
   - export FLASK_APP="$TRAVIS_BUILD_DIR/autoapp.py"
   - export FLASK_DEBUG=1

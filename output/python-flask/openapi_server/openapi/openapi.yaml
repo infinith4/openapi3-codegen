@@ -14,7 +14,7 @@ tags:
 paths:
   /api/add_address:
     post:
-      operationId: api_add_address
+      operationId: api_addaddress
       requestBody:
         content:
           application/json:
@@ -89,7 +89,7 @@ paths:
       x-openapi-router-controller: openapi_server.controllers.api_tx_controller
   /api/upload_text:
     post:
-      operationId: api_upload_text
+      operationId: api_uploadtext
       requestBody:
         content:
           application/json:
