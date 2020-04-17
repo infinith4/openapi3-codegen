@@ -24,7 +24,10 @@ python3 -m openapi_server
 
 pip3 freeze | grep -v "pkg-resources" > requirements.txt
 ```
-export OPENAPI_FLASK_CONFIG_FILE="/home/th4/projects/tys-hiroshi/openapi3-codegen/output/python-flask/openapi_server/config.py"
+
+```
+export OPENAPI_FLASK_CONFIG_FILE="/home/[user]/projects/tys-hiroshi/openapi3-codegen/output/python-flask/openapi_server/config.py"
+```
 
 and open your browser to here:
 
