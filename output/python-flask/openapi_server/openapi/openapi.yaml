@@ -39,7 +39,7 @@ paths:
       - api
       x-codegen-request-body-name: body
       x-openapi-router-controller: openapi_server.controllers.api_addaddress_controller
-  /api/tx:
+  /api/tx/{addr}:
     get:
       description: get transaction from mongodb.
       operationId: api_tx
@@ -52,22 +52,6 @@ paths:
         schema:
           type: string
         style: simple
-      - description: start index ( default is 0 )
-        explode: true
-        in: query
-        name: start_index
-        required: false
-        schema:
-          type: integer
-        style: form
-      - description: get transaction count ( default is 5 )
-        explode: true
-        in: query
-        name: count
-        required: false
-        schema:
-          type: integer
-        style: form
       responses:
         "200":
           content:

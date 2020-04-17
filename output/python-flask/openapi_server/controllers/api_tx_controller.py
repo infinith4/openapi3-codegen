@@ -11,6 +11,8 @@ import six
 import multiprocessing
 from openapi_server import app, mongo, bootstrap
 
+from flaskapp.lib.whats_on_chain_lib import WhatsOnChainLib
+
 def api_tx(addr, start_index=None, count=None):  # noqa: E501
     # """get transactions.
 
