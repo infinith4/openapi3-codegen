@@ -11,7 +11,7 @@ import six
 import multiprocessing
 from openapi_server import app, mongo, bootstrap
 
-from flaskapp.lib.whats_on_chain_lib import WhatsOnChainLib
+from openapi_server.libraires.whats_on_chain_lib import WhatsOnChainLib
 
 def api_tx(addr, start_index=None, count=None):  # noqa: E501
     # """get transactions.
@@ -30,26 +30,19 @@ def api_tx(addr, start_index=None, count=None):  # noqa: E501
     # return 'do some magic!'
 
     try:
-        addr = "aaaaaaa"
         app.app.logger.info("start /api/tx")
-        start_index_str = app.app.request.args.get('start_index')
-        if start_index_str == "":
+        if start_index == None:
             start_index = 0
-        else: 
-            start_index = int(start_index_str)
-        cnt_str = app.app.request.args.get('cnt')
-        if cnt_str == "":
-            cnt = 5
-        else:
-            cnt = int(cnt_str)
-        print("addr: %s; start_index:%s;cnt: %s" % (addr, start_index, cnt))
+        if count == None:
+            count = 5
+        print("addr: %s; start_index:%s;count: %s" % (addr, start_index, count))
         # search mongodb transaction records from start_index to cnt.
         trans_list = []
         transaction_list = mongo.db.transaction.find(filter={'address': addr }, sort=[("_id",DESCENDING)])
         if transaction_list.count() > 0:
             maxcount = transaction_list.count()
-            if start_index + cnt <= transaction_list.count():
-                maxcount = start_index + cnt
+            if start_index + count <= transaction_list.count():
+                maxcount = start_index + count
             for i in range(start_index, maxcount):
                 trans_list.append(transaction_list[i]["txid"])
 
@@ -64,7 +57,7 @@ def api_tx(addr, start_index=None, count=None):  # noqa: E501
                 if item is not None and item.mimetype == "text/plain":
                     res_get_textdata.append(item.data)
         print(res_get_textdata)
-        return 200, { 'textdata_list': res_get_textdata }
+        return { 'textdata_list': res_get_textdata }, 200
     except Exception as e:
         print(e)
         return "", 500

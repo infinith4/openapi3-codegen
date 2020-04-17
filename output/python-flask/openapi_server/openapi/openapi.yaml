@@ -52,6 +52,22 @@ paths:
         schema:
           type: string
         style: simple
+      - description: start index ( default is 0 )
+        explode: true
+        in: query
+        name: start_index
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: get transaction count ( default is 5 )
+        explode: true
+        in: query
+        name: count
+        required: false
+        schema:
+          type: integer
+        style: form
       responses:
         "200":
           content:
