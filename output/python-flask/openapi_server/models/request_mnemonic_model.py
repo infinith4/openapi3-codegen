@@ -29,7 +29,7 @@ class RequestMnemonicModel(Model):
             'mnemonic': 'mnemonic'
         }
 
-        self.mnemonic = mnemonic
+        self._mnemonic = mnemonic
 
     @classmethod
     def from_dict(cls, dikt) -> 'RequestMnemonicModel':

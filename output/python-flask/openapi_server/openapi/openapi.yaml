@@ -40,6 +40,73 @@ paths:
       - api
       x-codegen-request-body-name: body
       x-openapi-router-controller: openapi_server.controllers.api_addaddress_controller
+  /api/download/{txid}:
+    get:
+      description: get data for transaction id on Bitcoin SV.
+      operationId: api_download
+      parameters:
+      - description: bitcoin sv transaction id
+        explode: true
+        in: path
+        name: txid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            image/png:
+              schema:
+                format: binary
+                type: string
+            image/jpeg:
+              schema:
+                format: binary
+                type: string
+            text/plain:
+              schema:
+                format: binary
+                type: string
+          description: successful operation
+        "400":
+          content: {}
+          description: Invalid status value
+      security:
+      - api_key: []
+      summary: get data for transaction id on Bitcoin SV.
+      tags:
+      - api
+      x-codegen-request-body-name: body
+      x-openapi-router-controller: openapi_server.controllers.api_download_controller
+  /api/mnemonic:
+    post:
+      description: convert mnemonic words to wif, asset on Bitcoin SV.
+      operationId: api_mnemonic
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestMnemonicModel'
+        description: request /api/mnemonic
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMnemonicModel'
+          description: successful operation
+        "400":
+          content: {}
+          description: Invalid Order
+      security:
+      - api_key: []
+      summary: convert mnemonic words to wif, asset on Bitcoin SV.
+      tags:
+      - api
+      x-codegen-request-body-name: body
+      x-openapi-router-controller: openapi_server.controllers.api_mnemonic_controller
   /api/tx/{addr}:
     get:
       description: get transaction from mongodb.
@@ -88,6 +155,41 @@ paths:
       - api
       x-codegen-request-body-name: body
       x-openapi-router-controller: openapi_server.controllers.api_tx_controller
+  /api/upload:
+    post:
+      description: convert mnemonic words to wif, asset on Bitcoin SV.
+      operationId: api_upload
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                privatekey_wif:
+                  type: string
+                file:
+                  format: binary
+                  type: string
+              type: object
+        description: request /api/upload
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseUploadModel'
+          description: successful operation
+        "400":
+          content: {}
+          description: Invalid Order
+      security:
+      - api_key: []
+      summary: upload file on Bitcoin SV. (100kb)
+      tags:
+      - api
+      x-codegen-request-body-name: body
+      x-openapi-router-controller: openapi_server.controllers.api_upload_controller
   /api/upload_text:
     post:
       description: upload text data on Bitcoin SV.
@@ -119,6 +221,13 @@ paths:
       x-codegen-request-body-name: body
       x-openapi-router-controller: openapi_server.controllers.api_uploadtext_controller
 components:
+  requestBodies:
+    inline_object:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+      required: true
   schemas:
     RequestUploadTextModel:
       description: request /api/upload_text
@@ -154,6 +263,48 @@ components:
           type: string
       title: response /api/add_address
       type: object
+    RequestMnemonicModel:
+      description: request /api/mnemonic
+      example:
+        mnemonic: bitcoin sv mnemonic words
+      properties:
+        mnemonic:
+          type: string
+      title: request /api/mnemonic
+      type: object
+    ResponseMnemonicModel:
+      description: response /api/mnemonic
+      example:
+        code: 0
+        privatekey_wif: privatekey
+        address: address
+        balance_satoshi: 100
+      properties:
+        code:
+          format: int32
+          type: integer
+        privatekey_wif:
+          type: string
+        address:
+          type: string
+        balance_satoshi:
+          format: int32
+          type: integer
+      title: response /api/mnemonic
+      type: object
+    ResponseUploadModel:
+      description: response /api/upload
+      example:
+        code: 0
+        txid: transaction id
+      properties:
+        code:
+          format: int32
+          type: integer
+        txid:
+          type: string
+      title: response /api/upload
+      type: object
     ResponseUploadTextModel:
       description: response /api/add_address
       example:
@@ -183,6 +334,14 @@ components:
             type: string
           type: array
       title: response /api/tx
+      type: object
+    inline_object:
+      properties:
+        privatekey_wif:
+          type: string
+        file:
+          format: binary
+          type: string
       type: object
   securitySchemes:
     api_key:

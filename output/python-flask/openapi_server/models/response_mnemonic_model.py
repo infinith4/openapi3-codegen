@@ -15,26 +15,36 @@ class ResponseMnemonicModel(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, privatekey_wif=None, address=None, balance_satoshi=None):  # noqa: E501
+    def __init__(self, code=None, privatekey_wif=None, address=None, balance_satoshi=None):  # noqa: E501
         """ResponseMnemonicModel - a model defined in OpenAPI
 
         :param code: The code of this ResponseMnemonicModel.  # noqa: E501
         :type code: int
-        :param textdata_list: The textdata_list of this ResponseMnemonicModel.  # noqa: E501
-        :type textdata_list: List[str]
+        :param privatekey_wif: The privatekey_wif of this ResponseMnemonicModel.  # noqa: E501
+        :type privatekey_wif: str
+        :param address: The address of this ResponseMnemonicModel.  # noqa: E501
+        :type address: str
+        :param balance_satoshi: The balance_satoshi of this ResponseMnemonicModel.  # noqa: E501
+        :type balance_satoshi: int
         """
         self.openapi_types = {
             'code': int,
-            'textdata_list': List[str]
+            'privatekey_wif': str,
+            'address': str,
+            'balance_satoshi': int
         }
 
         self.attribute_map = {
             'code': 'code',
-            'textdata_list': 'textdata_list'
+            'privatekey_wif': 'privatekey_wif',
+            'address': 'address',
+            'balance_satoshi': 'balance_satoshi'
         }
 
         self._code = code
-        self._textdata_list = textdata_list
+        self._privatekey_wif = privatekey_wif
+        self._address = address
+        self._balance_satoshi = balance_satoshi
 
     @classmethod
     def from_dict(cls, dikt) -> 'ResponseMnemonicModel':
@@ -69,22 +79,64 @@ class ResponseMnemonicModel(Model):
         self._code = code
 
     @property
-    def textdata_list(self):
-        """Gets the textdata_list of this ResponseMnemonicModel.
+    def privatekey_wif(self):
+        """Gets the privatekey_wif of this ResponseMnemonicModel.
 
 
-        :return: The textdata_list of this ResponseMnemonicModel.
-        :rtype: List[str]
+        :return: The privatekey_wif of this ResponseMnemonicModel.
+        :rtype: str
         """
-        return self._textdata_list
+        return self._privatekey_wif
 
-    @textdata_list.setter
-    def textdata_list(self, textdata_list):
-        """Sets the textdata_list of this ResponseMnemonicModel.
+    @privatekey_wif.setter
+    def privatekey_wif(self, privatekey_wif):
+        """Sets the privatekey_wif of this ResponseMnemonicModel.
 
 
-        :param textdata_list: The textdata_list of this ResponseMnemonicModel.
-        :type textdata_list: List[str]
+        :param privatekey_wif: The privatekey_wif of this ResponseMnemonicModel.
+        :type privatekey_wif: str
         """
 
-        self._textdata_list = textdata_list
+        self._privatekey_wif = privatekey_wif
+
+    @property
+    def address(self):
+        """Gets the address of this ResponseMnemonicModel.
+
+
+        :return: The address of this ResponseMnemonicModel.
+        :rtype: str
+        """
+        return self._address
+
+    @address.setter
+    def address(self, address):
+        """Sets the address of this ResponseMnemonicModel.
+
+
+        :param address: The address of this ResponseMnemonicModel.
+        :type address: str
+        """
+
+        self._address = address
+
+    @property
+    def balance_satoshi(self):
+        """Gets the balance_satoshi of this ResponseMnemonicModel.
+
+
+        :return: The balance_satoshi of this ResponseMnemonicModel.
+        :rtype: int
+        """
+        return self._balance_satoshi
+
+    @balance_satoshi.setter
+    def balance_satoshi(self, balance_satoshi):
+        """Sets the balance_satoshi of this ResponseMnemonicModel.
+
+
+        :param balance_satoshi: The balance_satoshi of this ResponseMnemonicModel.
+        :type balance_satoshi: int
+        """
+
+        self._balance_satoshi = balance_satoshi

@@ -5,6 +5,7 @@ wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/4.3.0
 
 sudo apt install openjdk-11-jdk
 
+java -jar openapi-generator-cli.jar generate -i bsvcontent.yml -g python-flask -o python-flask
 
 
 ```

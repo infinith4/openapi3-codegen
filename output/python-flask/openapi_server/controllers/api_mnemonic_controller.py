@@ -1,7 +1,13 @@
+import connexion
+import six
+
 from openapi_server.models.request_add_address_model import RequestAddAddressModel  # noqa: E501
+from openapi_server.models.request_mnemonic_model import RequestMnemonicModel  # noqa: E501
 from openapi_server.models.request_upload_text_model import RequestUploadTextModel  # noqa: E501
 from openapi_server.models.response_add_address_model import ResponseAddAddressModel  # noqa: E501
+from openapi_server.models.response_mnemonic_model import ResponseMnemonicModel  # noqa: E501
 from openapi_server.models.response_tx_model import ResponseTxModel  # noqa: E501
+from openapi_server.models.response_upload_model import ResponseUploadModel  # noqa: E501
 from openapi_server.models.response_upload_text_model import ResponseUploadTextModel  # noqa: E501
 from openapi_server import util
 
@@ -15,32 +21,30 @@ from openapi_server.libraires.whats_on_chain_lib import WhatsOnChainLib
 import bitsv
 from openapi_server.bip39mnemonic import Bip39Mnemonic
 
-def api_mnemonic():  # noqa: E501
-    # """get transactions.
+def api_mnemonic(body):  # noqa: E501
+    """convert mnemonic words to wif, asset on Bitcoin SV.
 
-    # get transaction from mongodb. # noqa: E501
+    convert mnemonic words to wif, asset on Bitcoin SV. # noqa: E501
 
-    # :param addr: bitcoin sv address
-    # :type addr: str
-    # :param start_index: start index ( default is 0 )
-    # :type start_index: int
-    # :param count: get transaction count ( default is 5 )
-    # :type count: int
+    :param body: request /api/mnemonic
+    :type body: dict | bytes
 
-    # :rtype: List[ResponseTxModel]
-    # """
+    :rtype: ResponseMnemonicModel
+    """
+    # if connexion.request.is_json:
+    #     body = RequestMnemonicModel.from_dict(connexion.request.get_json())  # noqa: E501
     # return 'do some magic!'
 
     try:
         app.app.logger.info("start /api/tx")
         if connexion.request.is_json:
-            body = RequestAddAddressModel.from_dict(connexion.request.get_json())  # noqa: E501
+            body = RequestMnemonicModel.from_dict(connexion.request.get_json())  # noqa: E501
         mnemonic = body.mnemonic  #app.config['TESTNET_MNEMONIC']
         bip39Mnemonic = Bip39Mnemonic(mnemonic, passphrase="", network="test")
         privateKey = bitsv.Key(bip39Mnemonic.privatekey_wif, network = 'test')
         address = privateKey.address
         balance_satoshi = privateKey.get_balance()
-        balance_bsv = float(balance_satoshi) / float(100000000)
+        #balance_bsv = float(balance_satoshi) / float(100000000)
             # html = render_template(
             #     'mnemonic.html',
             #     privatekey_wif = bip39Mnemonic.privatekey_wif,
@@ -48,8 +52,8 @@ def api_mnemonic():  # noqa: E501
             #     balance_satoshi = balance_satoshi,
             #     balance_bsv = balance_bsv,
             #     title="mnemonic")
-        return { 'textdata_list': res_get_textdata }, 200
+        return ResponseMnemonicModel(0, bip39Mnemonic.privatekey_wif, address, balance_satoshi).to_str(), 200
     except Exception as e:
         print(e)
-        return "", 500
+        return {}, 500
 
