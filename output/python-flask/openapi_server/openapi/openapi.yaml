@@ -14,6 +14,7 @@ tags:
 paths:
   /api/add_address:
     post:
+      description: search data for added address on Bitcoin SV.
       operationId: api_addaddress
       requestBody:
         content:
@@ -34,7 +35,7 @@ paths:
           description: Invalid Order
       security:
       - api_key: []
-      summary: /api/address
+      summary: search data for added address on bitcoin sv
       tags:
       - api
       x-codegen-request-body-name: body
@@ -89,6 +90,7 @@ paths:
       x-openapi-router-controller: openapi_server.controllers.api_tx_controller
   /api/upload_text:
     post:
+      description: upload text data on Bitcoin SV.
       operationId: api_uploadtext
       requestBody:
         content:

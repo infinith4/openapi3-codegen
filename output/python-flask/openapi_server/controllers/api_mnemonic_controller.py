@@ -12,8 +12,10 @@ import multiprocessing
 from openapi_server import app, mongo, bootstrap
 
 from openapi_server.libraires.whats_on_chain_lib import WhatsOnChainLib
+import bitsv
+from openapi_server.bip39mnemonic import Bip39Mnemonic
 
-def api_tx(addr, start_index=None, count=None):  # noqa: E501
+def api_mnemonic():  # noqa: E501
     # """get transactions.
 
     # get transaction from mongodb. # noqa: E501
@@ -31,32 +33,21 @@ def api_tx(addr, start_index=None, count=None):  # noqa: E501
 
     try:
         app.app.logger.info("start /api/tx")
-        if start_index == None:
-            start_index = 0
-        if count == None:
-            count = 5
-        print("addr: %s; start_index:%s;count: %s" % (addr, start_index, count))
-        # search mongodb transaction records from start_index to cnt.
-        trans_list = []
-        transaction_list = mongo.db.transaction.find(filter={'address': addr }, sort=[("_id",DESCENDING)])
-        if transaction_list.count() > 0:
-            maxcount = transaction_list.count()
-            if start_index + count <= transaction_list.count():
-                maxcount = start_index + count
-            for i in range(start_index, maxcount):
-                trans_list.append(transaction_list[i]["txid"])
-
-        res_get_textdata = []
-        #print(trans_list)
-        if len(trans_list) > 0:
-            print(trans_list)
-            p = multiprocessing.Pool(6) # プロセス数を6に設定
-            result = p.map(WhatsOnChainLib.get_textdata, trans_list)  ## arg must be array
-
-            for item in result:
-                if item is not None and item.mimetype == "text/plain":
-                    res_get_textdata.append(item.data)
-        print(res_get_textdata)
+        if connexion.request.is_json:
+            body = RequestAddAddressModel.from_dict(connexion.request.get_json())  # noqa: E501
+        mnemonic = body.mnemonic  #app.config['TESTNET_MNEMONIC']
+        bip39Mnemonic = Bip39Mnemonic(mnemonic, passphrase="", network="test")
+        privateKey = bitsv.Key(bip39Mnemonic.privatekey_wif, network = 'test')
+        address = privateKey.address
+        balance_satoshi = privateKey.get_balance()
+        balance_bsv = float(balance_satoshi) / float(100000000)
+            # html = render_template(
+            #     'mnemonic.html',
+            #     privatekey_wif = bip39Mnemonic.privatekey_wif,
+            #     address = address,
+            #     balance_satoshi = balance_satoshi,
+            #     balance_bsv = balance_bsv,
+            #     title="mnemonic")
         return { 'textdata_list': res_get_textdata }, 200
     except Exception as e:
         print(e)

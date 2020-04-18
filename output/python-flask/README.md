@@ -58,3 +58,17 @@ docker build -t openapi_server .
 # starting up a container
 docker run -p 8080:8080 openapi_server
 ```
+
+
+```
+sudo apt install -y nodejs npm
+sudo npm install n -g
+sudo n stable
+sudo apt purge -y nodejs npm
+exec $SHELL -l
+node -v
+sudo n lts
+sudo npm install -g openapi-to-postmanv2
+openapi2postmanv2 -s openapi_server/openapi/openapi.yaml -o postman_collection.json -p
+```
+

@@ -1,0 +1,387 @@
+{
+    "item": [
+        {
+            "id": "aeb57151-9f88-41d2-a825-bacdf5884d5c",
+            "name": "api",
+            "item": [
+                {
+                    "id": "aaa0a3a7-4143-43cb-a324-3e240a9ebb47",
+                    "name": "/api/address",
+                    "request": {
+                        "name": "/api/address",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "api",
+                                "add_address"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "x-api-key",
+                                "value": "",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"address\": \"<string>\"\n}"
+                        }
+                    },
+                    "response": [
+                        {
+                            "id": "58ab7ea1-879d-4f71-bf4c-387a24323067",
+                            "name": "successful operation",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "api",
+                                        "add_address"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"address\": \"bitcoin sv address\"\n}"
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n \"code\": 0,\n \"message\": \"message\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "b38bce51-27a9-4055-ae6d-af6cd4253982",
+                            "name": "Invalid Order",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "api",
+                                        "add_address"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"address\": \"bitcoin sv address\"\n}"
+                                }
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "text/plain"
+                                }
+                            ],
+                            "body": "",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": []
+                },
+                {
+                    "id": "275fb835-930b-490c-932f-6d397a4def2a",
+                    "name": "get transactions.",
+                    "request": {
+                        "name": "get transactions.",
+                        "description": {
+                            "content": "get transaction from mongodb.",
+                            "type": "text/plain"
+                        },
+                        "url": {
+                            "path": [
+                                "api",
+                                "tx",
+                                ":addr"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [
+                                {
+                                    "description": "start index ( default is 0 )",
+                                    "key": "start_index",
+                                    "value": "<integer>"
+                                },
+                                {
+                                    "description": "get transaction count ( default is 5 )",
+                                    "key": "count",
+                                    "value": "<integer>"
+                                }
+                            ],
+                            "variable": [
+                                {
+                                    "description": "(Required) bitcoin sv address",
+                                    "type": "any",
+                                    "value": "<string>",
+                                    "key": "addr"
+                                }
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "x-api-key",
+                                "value": "",
+                                "description": ""
+                            }
+                        ],
+                        "method": "GET",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "id": "83ccacc8-65f1-48fa-9c96-1e805048dd45",
+                            "name": "successful operation",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "api",
+                                        "tx",
+                                        ":addr"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "start_index",
+                                            "value": "<integer>"
+                                        },
+                                        {
+                                            "key": "count",
+                                            "value": "<integer>"
+                                        }
+                                    ],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "key": "addr"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "[\n {\n  \"code\": 0,\n  \"textdata_list\": [\n   \"text00\",\n   \"text01\"\n  ]\n },\n {\n  \"code\": 0,\n  \"textdata_list\": [\n   \"text00\",\n   \"text01\"\n  ]\n }\n]",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "e72d081c-9155-4ada-be3b-5105514fe9d2",
+                            "name": "Invalid status value",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "api",
+                                        "tx",
+                                        ":addr"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "start_index",
+                                            "value": "<integer>"
+                                        },
+                                        {
+                                            "key": "count",
+                                            "value": "<integer>"
+                                        }
+                                    ],
+                                    "variable": [
+                                        {
+                                            "type": "any",
+                                            "key": "addr"
+                                        }
+                                    ]
+                                },
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "text/plain"
+                                }
+                            ],
+                            "body": "",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": []
+                },
+                {
+                    "id": "db6becda-851d-49ba-8ef3-42fee9013748",
+                    "name": "upload text data on Bitcoin SV.",
+                    "request": {
+                        "name": "upload text data on Bitcoin SV.",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "api",
+                                "upload_text"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "x-api-key",
+                                "value": "",
+                                "description": ""
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"mnemonic_words\": \"<string>\",\n    \"message\": \"<string>\"\n}"
+                        }
+                    },
+                    "response": [
+                        {
+                            "id": "a7c2649e-480c-4b52-b59e-15fe2bb938af",
+                            "name": "successful operation",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "api",
+                                        "upload_text"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"mnemonic_words\": \"\",\n    \"message\": \"upload text\"\n}"
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "[\n {\n  \"code\": 0,\n  \"message\": \"message\"\n },\n {\n  \"code\": 0,\n  \"message\": \"message\"\n }\n]",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "d3359da9-b8f5-4dc5-bd7f-9735c8ab2235",
+                            "name": "Invalid status value",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "api",
+                                        "upload_text"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "method": "POST",
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"mnemonic_words\": \"\",\n    \"message\": \"upload text\"\n}"
+                                }
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "text/plain"
+                                }
+                            ],
+                            "body": "",
+                            "cookie": [],
+                            "_postman_previewlanguage": "text"
+                        }
+                    ],
+                    "event": []
+                }
+            ],
+            "event": []
+        }
+    ],
+    "event": [],
+    "variable": [
+        {
+            "id": "baseUrl",
+            "type": "string",
+            "value": "https://bsvcontent.herokuapp.com/v1"
+        }
+    ],
+    "info": {
+        "_postman_id": "269f3ee3-b3cd-40fc-87c8-b0847d68a06e",
+        "name": "OpenAPI BsvContent",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": {
+            "content": "This is `bsvcontentserver`.",
+            "type": "text/plain"
+        }
+    }
+}
