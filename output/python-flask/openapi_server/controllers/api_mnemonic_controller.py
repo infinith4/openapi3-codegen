@@ -21,7 +21,7 @@ from openapi_server.libraires.whats_on_chain_lib import WhatsOnChainLib
 import bitsv
 from openapi_server.bip39mnemonic import Bip39Mnemonic
 
-def api_mnemonic(body):  # noqa: E501
+def api_mnemonic():  # noqa: E501
     """convert mnemonic words to wif, asset on Bitcoin SV.
 
     convert mnemonic words to wif, asset on Bitcoin SV. # noqa: E501
@@ -36,7 +36,7 @@ def api_mnemonic(body):  # noqa: E501
     # return 'do some magic!'
 
     try:
-        app.app.logger.info("start /api/tx")
+        app.app.logger.info("start /api/mnemonic")
         if connexion.request.is_json:
             body = RequestMnemonicModel.from_dict(connexion.request.get_json())  # noqa: E501
         mnemonic = body.mnemonic  #app.config['TESTNET_MNEMONIC']

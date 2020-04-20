@@ -21,7 +21,7 @@ def allwed_file(filename):
     # OKなら１、だめなら0
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def api_upload(privatekey_wif=None, file=None):  # noqa: E501
+def api_upload(file=None, privatekey_wif=None):  # noqa: E501
     """upload file on Bitcoin SV. (100kb)
 
     convert mnemonic words to wif, asset on Bitcoin SV. # noqa: E501
@@ -54,6 +54,7 @@ def api_upload(privatekey_wif=None, file=None):  # noqa: E501
         # ファイルの保存
         #filepath = os.path.join(app.config['UPLOAD_FOLDER'], req_file.filename)
         #req_file.save(filepath)
+        #privatekey_wif = "cTqvJoYPXAKUuNWre4B53LDSUQNRq8P6vcRHtrTEnrSSNhUynysF"
         uploader = polyglot.Upload(privatekey_wif, 'test')
         print(uploader.network)
         req_file_bytearray = bytearray(stream.read())
