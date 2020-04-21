@@ -50,7 +50,7 @@ def api_tx(addr, start_index=None, count=None):  # noqa: E501
         #print(trans_list)
         if len(trans_list) > 0:
             print(trans_list)
-            p = multiprocessing.Pool(2) # プロセス数を6に設定
+            p = multiprocessing.Pool(6) # プロセス数を6に設定
             result = p.map(WhatsOnChainLib.get_textdata, trans_list)  ## arg must be array
 
             for item in result:
