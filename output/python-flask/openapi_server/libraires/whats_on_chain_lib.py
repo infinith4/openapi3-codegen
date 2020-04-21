@@ -10,8 +10,8 @@ class WhatsOnChainLib(object):
     @classmethod
     def get_textdata(self, txid):
         try:
-            #print("txid")
-            #print(txid)
+            print("txid")
+            print(txid)
             #time.sleep(0.1)
             if txid != "":
                 url = "https://api.whatsonchain.com/v1/bsv/test/tx/hash/" + txid
