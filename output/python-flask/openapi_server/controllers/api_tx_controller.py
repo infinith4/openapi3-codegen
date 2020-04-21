@@ -30,6 +30,10 @@ def api_tx(addr, start_index=None, count=None):  # noqa: E501
     # return 'do some magic!'
 
     try:
+        pool = multiprocessing.Pool(6) # プロセス数を6に設定
+        array = ["test", "test01"]
+        with multiprocessing.Pool(5) as p:
+            print(p.map(f, [1, 2, 3]))
         app.app.logger.info("start /api/tx")
         if start_index == None:
             start_index = 0
@@ -61,4 +65,9 @@ def api_tx(addr, start_index=None, count=None):  # noqa: E501
     except Exception as e:
         print(e)
         return "", 500
+
+from multiprocessing import Pool
+
+def f(x):
+    return x*x
 
